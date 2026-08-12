@@ -1,2 +1,2 @@
-# 10-Aug-Practice
-tushar-devops-journey
+# terraform-azure-cicd-demo
+Terraform Parent-Child Module with GitHub Actions

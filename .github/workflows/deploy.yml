@@ -1,20 +1,16 @@
-name: "Terraform CI/CD Pipeline"
+name: "Deploy Azure Infrastructure"
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
   workflow_dispatch:
 
 jobs:
   terraform:
-    name: "Terraform Init, Plan & Apply"
+    name: "Terraform Run"
     runs-on: ubuntu-latest
 
-    # Working directory yahan set hoga YAML file ke andar:
     defaults:
       run:
         working-directory: Environment/preprod
@@ -28,7 +24,7 @@ jobs:
         with:
           terraform_version: 1.5.0
 
-      - nname: Azure Login
+      - name: Azure Login
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -43,5 +39,4 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
